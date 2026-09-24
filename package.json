@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/Anilab17/InsuredMine-Assessment/issues"
   },
-  "homepage": "https://github.com/Anilab17/InsuredMine-Assessment#readme"
+  "homepage": "https://github.com/Anilab17/InsuredMine-Assessment#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "mongoose": "^9.10.2"
+  }
 }
