@@ -1,39 +1,44 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    userKey:{
+    userKey: {
         type: String,
         required: true,
         unique: true,
     },
-    firstName:{
+    firstName: {
         type: String
     },
-    dob:{
-        type:Date
+    dob: {
+        type: Date
     },
-    address:{
-        type:String
-    },
-    phone:{
+    address: {
         type: String
     },
-    state:{
-        type:String
-    },
-    zip:{
-        type:String
-    },
-    email:{
+    phone: {
         type: String
     },
-    gender:{
+    state: {
         type: String
     },
-    userType:{
+    zip: {
         type: String
+    },
+    email: {
+        type: String
+    },
+    gender: {
+        type: String
+    },
+    userType: {
+        type: String
+    },
+    agentId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Agent"
     }
-},{timestamps:true})
+
+}, { timestamps: true })
 
 module.exports = mongoose.model('User', userSchema);
 

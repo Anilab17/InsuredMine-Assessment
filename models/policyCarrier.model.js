@@ -9,4 +9,4 @@ const policyCarrierSchema = new mongoose.Schema({
     }
 },{timestamps:true});       
 
-module.exports = mongoose.model('PolicyCarrier', policyCarrierSchema);
+module.exports = mongoose.model('Carrier', policyCarrierSchema);
