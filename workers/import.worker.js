@@ -12,7 +12,7 @@ const Carrier = require("../models/policyCarrier.model");
 const Policy = require("../models/policy.model");
 
 async function connectDB() {
-    await mongoose.connect(process.env.MONGO_URI);
+    await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/file_upload");
 }
 
 function parseCSV(filePath) {
@@ -55,23 +55,24 @@ async function importData() {
 
             // Agent
             let agent = await Agent.findOne({
-                name: row.agent
+                agentName: row.agent
             });
 
             if (!agent) {
                 agent = await Agent.create({
-                    name: row.agent
+                    agentName: row.agent
                 });
             }
 
+            const userKey = row["Applicant ID"] || row.email;
             let user = await User.findOne({
-                firstname: row.firstname,
-                email: row.email
+                userKey
             });
 
             if (!user) {
                 user = await User.create({
-                    firstname: row.firstname,
+                    userKey,
+                    firstName: row.firstname,
                     dob: row.dob || null,
                     address: row.address,
                     phone: row.phone,
@@ -85,12 +86,14 @@ async function importData() {
             }
 
             let account = await Account.findOne({
-                accountName: row.account_name
+                accountName: row.account_name,
+                userId: user._id
             });
 
             if (!account) {
                 account = await Account.create({
-                    accountName: row.account_name
+                    accountName: row.account_name,
+                    userId: user._id
                 });
             }
 
@@ -143,7 +146,7 @@ async function importData() {
         });
 
     } catch (error) {
-
+        console.log("Import error:", error);
         parentPort.postMessage({
             success: false,
             error: error.message

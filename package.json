@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "worker": "node workers/message.worker.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "express": "^5.2.1",
     "mongoose": "^9.10.2",
     "multer": "^2.4.0",
+    "node-cron": "^4.6.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
