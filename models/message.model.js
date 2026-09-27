@@ -10,6 +10,14 @@ const messageSchema = new mongoose.Schema(
         insertedAt: {
             type: Date,
             default: Date.now
+        },
+        scheduledAt: {
+            type: Date,
+            required: true
+        },
+        scheduledDay: {
+            type: String,
+            required: true
         }
     },
     {

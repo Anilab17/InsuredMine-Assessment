@@ -2,7 +2,6 @@ const User = require("../models/user.model");
 const Policy = require("../models/policy.model");
 
 require("../models/userAccount.model");
-require("../models/policyCategory.model");
 require("../models/policyCarrier.model");
 require("../models/agent.model");
 require("../models/lob.model");

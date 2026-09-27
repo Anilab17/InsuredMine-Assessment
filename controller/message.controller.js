@@ -1,7 +1,9 @@
-const ScheduledMessage = require("../models/ScheduledMessage.model");
+const {
+    scheduleMessage
+} = require("../services/message.service");
 
-const scheduleMessage = async (req, res) => {
-
+const createScheduledMessage = async (req, res) => {
+console.log("Received request to schedule message:", req.body);
     try {
 
         const {
@@ -14,48 +16,32 @@ const scheduleMessage = async (req, res) => {
 
             return res.status(400).json({
                 success: false,
-                message:
-                    "message, day and time are required"
+                message: "message, day and time are required"
             });
         }
 
-        const scheduledAt =
-            new Date(`${day}T${time}:00`);
-
-        if (isNaN(scheduledAt.getTime())) {
-
-            return res.status(400).json({
-                success: false,
-                message: "Invalid date/time"
-            });
-        }
-
-        if (scheduledAt <= new Date()) {
-
-            return res.status(400).json({
-                success: false,
-                message: "Scheduled date and time must be in the future"
-            });
-
-        }
-
-        const scheduledMessage =
-            await ScheduledMessage.create({
-                message,
-                scheduledAt,
-                status
-            });
-
+        const result = await scheduleMessage(
+            message,
+            day,
+            time
+        );
+        console.log(
+            `Scheduled message1111: "${message}" for ${day} at ${time}`
+        );
         return res.status(201).json({
             success: true,
-            message:
-                "Message scheduled successfully",
-            data: scheduledMessage
+            message: "Message scheduled successfully",
+            data: result
         });
 
     } catch (error) {
 
-        return res.status(500).json({
+        console.error(
+            "Schedule message error:",
+            error.message
+        );
+
+        return res.status(400).json({
             success: false,
             message: error.message
         });
@@ -63,5 +49,5 @@ const scheduleMessage = async (req, res) => {
 };
 
 module.exports = {
-    scheduleMessage
+    createScheduledMessage
 };
