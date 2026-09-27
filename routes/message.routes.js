@@ -1,14 +1,13 @@
 const express = require("express");
 
 const {
-    scheduleMessage
+    createScheduledMessage
 } = require("../controller/message.controller");
 
 const router = express.Router();
-
 router.post(
     "/schedule",
-    scheduleMessage
+    createScheduledMessage
 );
 
 module.exports = router;
